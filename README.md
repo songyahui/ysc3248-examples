@@ -14,8 +14,14 @@ Examples from the Lectures on Parallel, Concurrent and Distributed Programming (
 
 ### Building and Testing the Project
 
-To compile and run the entire test suite (and see some cool synthesis results), execute from the root folder of the project:
+To compile and run the entire test suite (and see some cool synthesis results), execute the following command in the terminal from the root folder of the project:
 
 ```
 sbt test
+```
+
+To execute a sample script, run
+
+```
+sbt "runMain basic.HelloWorld"
 ```
