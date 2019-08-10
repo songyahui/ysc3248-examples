@@ -16,7 +16,7 @@ package util
 
 object ThreadID {
   @volatile
-  private  var nextID: Int = 0
+  private var nextID: Int = 0
 
   private class ThreadLocalID extends ThreadLocal[Int] {
     override protected def initialValue: Int = this.synchronized {
@@ -32,5 +32,9 @@ object ThreadID {
 
   def set(index: Int): Unit = {
     threadID.set(index)
+  }
+  
+  def reset(): Unit = {
+    nextID = 0
   }
 }
