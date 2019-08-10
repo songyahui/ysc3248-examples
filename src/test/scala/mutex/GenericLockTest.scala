@@ -20,31 +20,27 @@ trait GenericLockTest extends FunSpec with Matchers {
   describe(s"Two parallel threads with ${lockInstance.getClass.getName}") {
     it("should be mutually exclusive") {
       ThreadID.reset()
+
       val thread = Array.fill(THREADS)(new MyThread(lockInstance))
 
-      // Start all threads
       for (i <- 0 until THREADS) {
         thread(i).start()
       }
 
-      // Wait for all threads to join
+      // What is heppening here?
       for (i <- 0 until THREADS) {
         thread(i).join()
       }
 
-      assert(counter == COUNT, s"The result of counter should be $COUNT")
+      // What can we assert about the counter?
+      assert(true)
     }
   }
 
   class MyThread(lockInstance: Lock) extends Thread {
     override def run(): Unit = {
       for (i <- 0 until PER_THREAD) {
-        lockInstance.lock()
-        try {
-          counter = counter + 1
-        } finally {
-          lockInstance.unlock()
-        }
+        // TODO: What should I do?
       }
     }
   }
