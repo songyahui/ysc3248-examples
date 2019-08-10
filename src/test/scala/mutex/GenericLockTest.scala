@@ -33,7 +33,7 @@ trait GenericLockTest extends FunSpec with Matchers {
       }
 
       // What can we assert about the counter?
-      assert(true)
+      assert(false)
     }
   }
 
