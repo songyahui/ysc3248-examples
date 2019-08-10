@@ -11,7 +11,7 @@ import util.ThreadID
 trait GenericLockTest extends FunSpec with Matchers {
   val THREADS = 2
   val COUNT = 1024
-  val PER_THREAD = COUNT / THREADS
+  def PER_THREAD = COUNT / THREADS
   var counter: Int = 0
   
   def makeLockInstance: Lock 
@@ -20,27 +20,27 @@ trait GenericLockTest extends FunSpec with Matchers {
   describe(s"Two parallel threads with ${lockInstance.getClass.getName}") {
     it("should be mutually exclusive") {
       ThreadID.reset()
-
       val thread = Array.fill(THREADS)(new MyThread(lockInstance))
 
+      // Start all threads
       for (i <- 0 until THREADS) {
         thread(i).start()
       }
 
-      // What is heppening here?
+      // Wait for all threads to join
       for (i <- 0 until THREADS) {
         thread(i).join()
       }
 
-      // What can we assert about the counter?
-      assert(false)
+      // TODO: what should we test?
+      assert(true)
     }
   }
 
   class MyThread(lockInstance: Lock) extends Thread {
     override def run(): Unit = {
       for (i <- 0 until PER_THREAD) {
-        // TODO: What should I do?
+        // TODO: implement me
       }
     }
   }
