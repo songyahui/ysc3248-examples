@@ -23,4 +23,6 @@ libraryDependencies ++= Seq(
 
 scalacOptions ++= Seq()
 
-
+// This prevents individual tests executing in parallel,
+// thus, messing up the ThreadID logic
+parallelExecution in ThisBuild := false
