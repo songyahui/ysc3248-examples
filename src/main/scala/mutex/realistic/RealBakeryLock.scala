@@ -24,7 +24,7 @@ class RealBakeryLock(val threads: Int) extends Lock {
     val i = ThreadID.get
     flag(i).set(true)
     label(i) = new AtomicInteger(findMaximumElement(label) + 1)
-    for (k <- label.indices if k != i) {
+    for (k <- 0 until threads if k != i) {
       while (
         flag(k).get() &&
           (label(k).get() < label(i).get() ||
@@ -39,7 +39,7 @@ class RealBakeryLock(val threads: Int) extends Lock {
   }
 
   private def findMaximumElement(elementArray: Array[AtomicInteger]) = {
-    var maxValue = Integer.MIN_VALUE
+    var maxValue = 0
     for (i <- elementArray.indices; e = elementArray(i).get) {
       if (e > maxValue) maxValue = e
     }

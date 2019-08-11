@@ -35,14 +35,8 @@ class BakeryLock(val threads: Int) extends Lock {
     i != me && flag(i) && label(me).compareTo(label(i)) < 0
   )
 
-  class Label extends Comparable[Label] {
-    var counter: Int = 0
+  class Label(val counter: Int = 0) extends Comparable[Label] {
     val id: Long = ThreadID.get
-
-    def this(c: Int) {
-      this()
-      counter = c
-    }
 
     override def compareTo(other: Label) = {
       if (this.counter < other.counter ||
