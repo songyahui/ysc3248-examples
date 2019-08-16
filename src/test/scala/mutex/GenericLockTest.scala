@@ -33,14 +33,21 @@ trait GenericLockTest extends FunSpec with Matchers {
       }
 
       // TODO: what should we test?
-      assert(true)
+      assert(counter == COUNT)
     }
   }
 
   class MyThread(lockInstance: Lock) extends Thread {
     override def run(): Unit = {
       for (i <- 0 until PER_THREAD) {
-        // TODO: implement me
+        lockInstance.lock()
+        try {
+          val tmp = counter
+          println(s"Thread ${Thread.currentThread().getId}: $tmp")
+          counter = tmp + 1
+        }  finally {
+          lockInstance.unlock()
+        }
       }
     }
   }
