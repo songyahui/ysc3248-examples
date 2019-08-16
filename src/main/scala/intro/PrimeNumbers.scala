@@ -15,8 +15,8 @@ object PrimeNumbers {
     true
   }
 
-  def main(args: Array[String]): Unit = {
-    
-  }
+//  def main(args: Array[String]): Unit = {
+//    println(isPrime(238))
+//  }
 
 }

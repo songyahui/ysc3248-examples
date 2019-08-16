@@ -24,6 +24,8 @@ class RealBakeryLock(val threads: Int) extends Lock {
     val i = ThreadID.get
     flag(i).set(true)
     label(i) = new AtomicInteger(findMaximumElement(label) + 1)
+    flag = flag
+    label = label
     for (k <- 0 until threads if k != i) {
       while (
         flag(k).get() &&
