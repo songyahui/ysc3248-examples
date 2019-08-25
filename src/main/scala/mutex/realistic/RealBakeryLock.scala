@@ -16,14 +16,16 @@ class RealBakeryLock(val threads: Int) extends Lock {
   @volatile
   private var label: Array[AtomicInteger] =
     Array.fill(threads)(new AtomicInteger(0))
-  @volatile 
+  @volatile
   private var flag: Array[AtomicBoolean] =
     Array.fill(threads)(new AtomicBoolean(false))
 
   override def lock(): Unit = {
     val i = ThreadID.get
     flag(i).set(true)
+    flag = flag
     label(i) = new AtomicInteger(findMaximumElement(label) + 1)
+    label = label
     for (k <- 0 until threads if k != i) {
       while (
         flag(k).get() &&
@@ -36,11 +38,13 @@ class RealBakeryLock(val threads: Int) extends Lock {
 
   override def unlock(): Unit = {
     flag(ThreadID.get).set(false)
+    flag = flag
   }
 
   private def findMaximumElement(elementArray: Array[AtomicInteger]) = {
     var maxValue = 0
-    for (i <- elementArray.indices; e = elementArray(i).get) {
+    for (i <- elementArray.indices) {
+      val e = elementArray(i).get
       if (e > maxValue) maxValue = e
     }
     maxValue
