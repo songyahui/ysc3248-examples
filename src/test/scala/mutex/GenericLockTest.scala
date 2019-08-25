@@ -32,7 +32,6 @@ trait GenericLockTest extends FunSpec with Matchers {
         thread(i).join()
       }
 
-      // TODO: what should we test?
       assert(counter == COUNT)
     }
   }
