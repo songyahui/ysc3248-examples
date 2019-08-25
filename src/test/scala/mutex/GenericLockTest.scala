@@ -32,7 +32,7 @@ trait GenericLockTest extends FunSpec with Matchers {
         thread(i).join()
       }
 
-      assert(counter == COUNT)
+      assert(counter == COUNT, s"The result of counter should be $COUNT")
     }
   }
 
@@ -41,10 +41,8 @@ trait GenericLockTest extends FunSpec with Matchers {
       for (i <- 0 until PER_THREAD) {
         lockInstance.lock()
         try {
-          val tmp = counter
-          println(s"Thread ${Thread.currentThread().getId}: $tmp")
-          counter = tmp + 1
-        }  finally {
+          counter = counter + 1
+        } finally {
           lockInstance.unlock()
         }
       }

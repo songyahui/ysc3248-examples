@@ -18,7 +18,7 @@ object PrintPrimesWithCounter extends PrimePrinter {
     val limit = math.pow(10, powerOfTen).intValue
     while (i < limit) {
       i = counter.getAndIncrement
-      if (i < limit && PrimeNumbers.isPrime(i)) {
+      if (PrimeNumbers.isPrime(i)) {
         println(i)
       }
     }
